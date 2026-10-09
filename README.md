@@ -97,6 +97,7 @@ Lower sample rates may improve playback stability.
 Real-time 11-band FFT spectrum analyzer.
 
 Center frequencies:
+
 45Hz
 
 90Hz
