@@ -16,7 +16,7 @@ USB経由で入力された2ch PCMオーディオ信号をオーバーサンプ�
 
 ## ハードウェア改修履歴
 
-Ver1:
+### Ver1:
 
 Pico2側
 
@@ -30,7 +30,7 @@ PicoAudioPack側
 
 - LPF定数 C 2200pF → 1200pF へ変更
 
-Ver2:
+### Ver2:
 
 PicoAudioPack側
 
@@ -40,13 +40,13 @@ PicoAudioPack側
 
 - CVDD/GND間に C0G 0.1μF 追加
 
-Ver3:
+### Ver3:
 
 PicoAudioPack側
 
 - AVDD/GND間に PLMCAP 3.3μF 追加
 
-Ver4 (最新):
+###  Ver4 (最新):
 
 Pico2側
 
@@ -89,15 +89,15 @@ Pico2側
 ※ PCM5100はPICO\_AUDIO\_PACK環境で動作確認済み
 
 ## 測定実績・パフォーマンス評価 (Ver4)
-SB-1240改によるループバック測定（24bit / 96kHz、RMS -10dB入力、300回平均）において、電源デカップリングの最適化とNOS化により以下の優れた特性を確認しています。
+- SB-1240改によるループバック測定（24bit / 96kHz、RMS -10dB入力、300回平均）において、電源デカップリングの最適化とNOS化により以下の優れた特性を確認しています。
 
-無音時ノイズフロアの改善: 1kHz付近の不要成分（スプリアス）がVer3と比較して約10dBの大幅な低下（-108.52dB → -118.44dB）を達成。
+- 無音時ノイズフロアの改善: 1kHz付近の不要成分（スプリアス）がVer3と比較して約10dBの大幅な低下（-108.52dB → -118.44dB）を達成。
 
-歪み特性の改善: 1kHz THDが 0.00110% へ改善（2次高調波が約3dB減少）。20kHz THD+Nが約13%改善（0.03719% → 0.03220%）。
+- 歪み特性の改善: 1kHz THDが 0.00110% へ改善（2次高調波が約3dB減少）。20kHz THD+Nが約13%改善（0.03719% → 0.03220%）。
 
-混変調歪み (IMD 19kHz + 20kHz): 差周波（1kHz成分）が約8.5dB大幅に改善（-107.70dB → -116.18dB）。
+- 混変調歪み (IMD 19kHz + 20kHz): 差周波（1kHz成分）が約8.5dB大幅に改善（-107.70dB → -116.18dB）。
 
-矩形波応答: FIRフィルタおよびオーバーサンプリングの解除により、20kHz以降の高調波成分がしっかりと保持され、高域の再現性と生々しさが向上。
+- 矩形波応答: FIRフィルタおよびオーバーサンプリングの解除により、20kHz以降の高調波成分がしっかりと保持され、高域の再現性と生々しさが向上。
 
 ## USB入力仕様
 
@@ -117,14 +117,14 @@ SB-1240改によるループバック測定（24bit / 96kHz、RMS -10dB入力、
 - No Oversampling
 - Bit-Perfect Playback
 
-ビットパーフェクト再生を行う場合は、Windows側の再生デバイス音量を100%に設定してください。
-Windowsの音量を下げるとデジタルボリューム処理が適用され、USBオーディオデバイスへ送られるPCMデータが変更される場合があります。
-より正確な再生を行うために、WASAPI Exclusive Mode（排他モード）の使用を推奨します。
+※　ビットパーフェクト再生を行う場合は、Windows側の再生デバイス音量を100%に設定してください。
+- Windowsの音量を下げるとデジタルボリューム処理が適用され、USBオーディオデバイスへ送られるPCMデータが変更される場合があります。
+- より正確な再生を行うために、WASAPI Exclusive Mode（排他モード）の使用を推奨します。
 
 ## Playback Notes
-高サンプリングレート再生時は、ご使用のPC環境や負荷状況により音切れが発生する場合があります。
-音切れが発生する場合は、再生ソフトウェアまたはOSのサンプリングレート設定を下げてご使用ください。
-システム負荷を低減することで再生が安定する場合があります。
+- 高サンプリングレート再生時は、ご使用のPC環境や負荷状況により音切れが発生する場合があります。
+- 音切れが発生する場合は、再生ソフトウェアまたはOSのサンプリングレート設定を下げてご使用ください。
+- システム負荷を低減することで再生が安定する場合があります。
 
 Audio dropouts may occur during high sample-rate playback depending on the host PC performance and system load.
 If audio dropouts occur, reduce the playback sample rate in the operating system or audio player settings.
@@ -176,19 +176,19 @@ The OLED display provides a real-time 11-band spectrum visualization optimized f
 - I²S Digital Audio Output
 
 ## ピンアサイン
-I²S
+### I²S
 - DATA : GP9
 
 - BCLK : GP10
 
 - LRCK : GP11
 
-## I²C
+### I²C
 - SDA : GP6
 
 - SCL : GP7
 
-## Control
+### Control
 - DAC ENABLE : GP5
 
 - POWERMODE SW : GP0
