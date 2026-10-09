@@ -108,16 +108,16 @@ The OLED display provides a real-time 11-band spectrum visualization optimized f
 - タイミング制御: timer 割り込み + バッファレートに応じたフィードバック制御
 
 ## ピンアサイン詳細
-- I2S DATA** : `GP9`
-- I2S BCLK** : `GP10`
-- I2S LRCK** : `GP11`
-- I2C SDA**  : `GP6`
-- I2C SCL**  : `GP7`
-- DAC ENABLE** : `GP5`
-- POWERMODE SW** : `GP0`
-- Pico Display (SPI/Ctrl)** : `GP16` - `GP20`
-- Pico Display カラーLED** : ピンアサインの衝突を防ぐため**停止状態（非使用）**に設定
-- Pico Display ボタン (A, B, X, Y)** : **未使用**
+- I2S DATA : `GP9`
+- I2S BCLK : `GP10`
+- I2S LRCK : `GP11`
+- I2C SDA  : `GP6`
+- I2C SCL  : `GP7`
+- DAC ENABLE : `GP5`
+- POWERMODE SW : `GP0`
+- Pico Display (SPI/Ctrl) : `GP16` - `GP20`
+- Pico Display カラーLED : ピンアサインの衝突を防ぐため**停止状態（非使用）**に設定
+- Pico Display ボタン (A, B, X, Y) : 未使用
 
 ## ビルド・使用方法
 1. 機器の接続は**ドーターボード経由**で行ってください。
