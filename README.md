@@ -27,25 +27,15 @@
 ## 特長
 
 - USB Audio Class 1.0 準拠
-
 - Raspberry Pi Pico2 (RP2350) 専用
-
 - No Oversampling (NOS)
-
 - No FIR Filtering
-
 - ダイレクトPCM出力
-
 - Bit-Perfect Playback Compatible
-
 - OLEDリアルタイム11バンドFFT表示
-
 - DMA + PIOによる低遅延I²S伝送
-
 - Dual Core RP2350対応
-
 - PICO_AUDIO_PACK互換
-
 - PICO_AUDIO_PACK互換
 
 ## 表示仕様（Pico Display Pack 2.0）
@@ -60,76 +50,6 @@
 - TI PCM5100
 
 ※ PCM5100はPICO_AUDIO_PACK環境で動作確認済み
-
-## ハードウェア改修履歴
-
-### Ver1:
-
-Pico2側
-
-- MPUにヒートシンク追加
-
-- VSYS/GND間に X7R 10μF + C0G 0.1μF 追加
-
-PicoAudioPack側 
-
-- LDO入力部に X7R 10μF + C0G 0.1μF 追加
-
-- LPF定数 C 2200pF → 1200pF へ変更
-
-### Ver2:
-
-PicoAudioPack側
-
-- LDO入力部に PLMCAP 1μF 追加
-
-- AVDD/GND間に C0G 0.1μF 追加
-
-- CVDD/GND間に C0G 0.1μF 追加
-
-### Ver3:
-
-PicoAudioPack側
-
-- AVDD/GND間に PLMCAP 3.3μF 追加
-
-###  Ver4 (最新):
-
-Pico2側
-
-- 3V3/GND間に X7R 3.3μF + C0G 0.1μF 追加
-
-- PCM5100A DVDD/GND間に PLMCAP 0.1μF 追加
-
-- ソフトウェアオーバーサンプリング解除
-
-- ソフトウェアFIRフィルタ解除（NOS化）
-
-## 測定実績・パフォーマンス評価 (Ver4)
-
-※本測定結果は、標準状態の Pico2 および Pico Audio Pack ではなく、 実際に運用している上記モディファイ済み構成に対して実施されたものである。
-
-また、電源やUSB接続環境についても、特別な処置を施した環境で測定しているため、全ての結果や動作を保証するものではありません。
-
-### 測定について
-- SB-1240改によるループバック測定（24bit / 96kHz、RMS -10dB入力、300回平均）において、電源デカップリングの最適化とNOS化により以下の優れた特性を確認しています。
-
-- 無音時ノイズフロアの改善: 1kHz付近の不要成分（スプリアス）がVer3と比較して約10dBの大幅な低下（-108.52dB → -118.44dB）を達成。
-
-- 歪み特性の改善: 1kHz THDが 0.00110% へ改善（2次高調波が約3dB減少）。20kHz THD+Nが約13%改善（0.03719% → 0.03220%）。
-
-- 混変調歪み (IMD 19kHz + 20kHz): 差周波（1kHz成分）が約8.5dB大幅に改善（-107.70dB → -116.18dB）。
-
-- 矩形波応答: FIRフィルタおよびオーバーサンプリングの解除により、20kHz以降の高調波成分がしっかりと保持され、高域の再現性と生々しさが向上。
-
-### 改修に至った理由
-- ノーオーバーサンプリング化とソフトウェアFIRフィルターの削除により、サンプルレート切り替え時の、ノイズ削減と周波数特性の改善を行っております。
-
-- DAC側でオーバーサンプリング処理＆FIRフィルターが実装されており、必要ないとの判断に至ったため。
-
-- オーディオストリームをなるべく加工せず送る方が音質的に有利と判断したため。
-
-- 元ソースコード状態において、MPUがオーバークロック状態に設定されているため、ヒートシンクが必要と判断して取り付けています。（発熱による動作停止を防ぐのが目的）
 
 ## USB入力仕様
 
@@ -168,29 +88,19 @@ Pico2側
 Center frequencies:
 
 - 45Hz
-
 - 90Hz
-
 - 125Hz
-
 - 360Hz
-
 - 700Hz
-
 - 1.4kHz (1k4)
-
 - 2.8kHz (2k8)
-
 - 5.6kHz (5k6)
-
 - 9.8kHz (9k8)
-
 - 18kHz
-
 - 22kHz
 
-FFT Configuration:
-- FFT\_LEN = 1024
+### FFT Configuration:
+- FFT_LEN = 1024
 
 The OLED display provides a real-time 11-band spectrum visualization optimized for RP2350 performance and low display latency.
 
@@ -208,16 +118,16 @@ The OLED display provides a real-time 11-band spectrum visualization optimized f
 - タイミング制御: timer 割り込み + バッファレートに応じたフィードバック制御
 
 ## ピンアサイン詳細
-* **I2S DATA** : `GP9`
-* **I2S BCLK** : `GP10`
-* **I2S LRCK** : `GP11`
-* **I2C SDA**  : `GP6`
-* **I2C SCL**  : `GP7`
-* **DAC ENABLE** : `GP5`
-* **POWERMODE SW** : `GP0`
-* **Pico Display (SPI/Ctrl)** : `GP16` - `GP20`
-* **Pico Display カラーLED** : ピンアサインの衝突を防ぐため**停止状態（非使用）**に設定
-* **Pico Display ボタン (A, B, X, Y)** : **未使用**
+- I2S DATA** : `GP9`
+- I2S BCLK** : `GP10`
+- I2S LRCK** : `GP11`
+- I2C SDA**  : `GP6`
+- I2C SCL**  : `GP7`
+- DAC ENABLE** : `GP5`
+- POWERMODE SW** : `GP0`
+- Pico Display (SPI/Ctrl)** : `GP16` - `GP20`
+- Pico Display カラーLED** : ピンアサインの衝突を防ぐため**停止状態（非使用）**に設定
+- Pico Display ボタン (A, B, X, Y)** : **未使用**
 
 ## ビルド・使用方法
 1. 機器の接続は**ドーターボード経由**で行ってください。
@@ -228,6 +138,53 @@ The OLED display provides a real-time 11-band spectrum visualization optimized f
 6. 生成されたファームウェア（`.uf2`）をドラッグ＆ドロップして書き込む。
 7. 接続後、OS標準のUSBオーディオデバイスとして自動認識されます。
 
+## ハードウェア改修履歴
+
+### Ver1:
+Pico2側
+- MPUにヒートシンク追加
+- VSYS/GND間に X7R 10μF + C0G 0.1μF 追加
+
+PicoAudioPack側 
+- LDO入力部に X7R 10μF + C0G 0.1μF 追加
+- LPF定数 C 2200pF → 1200pF へ変更
+
+### Ver2:
+PicoAudioPack側
+- LDO入力部に PLMCAP 1μF 追加
+- AVDD/GND間に C0G 0.1μF 追加
+- CVDD/GND間に C0G 0.1μF 追加
+
+### Ver3:
+PicoAudioPack側
+- AVDD/GND間に PLMCAP 3.3μF 追加
+
+###  Ver4 (最新):
+Pico2側
+- 3V3/GND間に X7R 3.3μF + C0G 0.1μF 追加
+- PCM5100A DVDD/GND間に PLMCAP 0.1μF 追加
+- ソフトウェアオーバーサンプリング解除
+- ソフトウェアFIRフィルタ解除（NOS化）
+
+## 測定実績・パフォーマンス評価 (Ver4)
+
+※本測定結果は、標準状態の Pico2 および Pico Audio Pack ではなく、 実際に運用している上記モディファイ済み構成に対して実施されたものである。
+
+また、電源やUSB接続環境についても、特別な処置を施した環境で測定しているため、全ての結果や動作を保証するものではありません。
+
+### 測定について
+- SB-1240改によるループバック測定（24bit / 96kHz、RMS -10dB入力、300回平均）において、電源デカップリングの最適化とNOS化により以下の優れた特性を確認しています。
+- 無音時ノイズフロアの改善: 1kHz付近の不要成分（スプリアス）がVer3と比較して約10dBの大幅な低下（-108.52dB → -118.44dB）を達成。
+- 歪み特性の改善: 1kHz THDが 0.00110% へ改善（2次高調波が約3dB減少）。20kHz THD+Nが約13%改善（0.03719% → 0.03220%）。
+- 混変調歪み (IMD 19kHz + 20kHz): 差周波（1kHz成分）が約8.5dB大幅に改善（-107.70dB → -116.18dB）。
+- 矩形波応答: FIRフィルタおよびオーバーサンプリングの解除により、20kHz以降の高調波成分がしっかりと保持され、高域の再現性と生々しさが向上。
+
+### 改修に至った理由
+- ノーオーバーサンプリング化とソフトウェアFIRフィルターの削除により、サンプルレート切り替え時の、ノイズ削減と周波数特性の改善を行っております。
+- DAC側でオーバーサンプリング処理＆FIRフィルターが実装されており、必要ないとの判断に至ったため。
+- オーディオストリームをなるべく加工せず送る方が音質的に有利と判断したため。
+- 元ソースコード状態において、MPUがオーバークロック状態に設定されているため、ヒートシンクが必要と判断して取り付けています。（発熱による動作停止を防ぐのが目的）
+
 ## ライセンス
 - MIT License
 - Original Copyright (c) 2025 ArqAlice
@@ -237,4 +194,3 @@ The OLED display provides a real-time 11-band spectrum visualization optimized f
 - USB Audio Class 1.0 Specification
 - Raspberry Pi Pico SDK
 - LUFA USB Framework
-
