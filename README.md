@@ -16,22 +16,36 @@ USB経由で入力された2ch PCMオーディオ信号をオーバーサンプ�
 
 ## ハードウェア改修履歴
 Ver1:
-Pico2側 VSYS/GND間に X7R 10μF + C0G 0.1μF 追加
-PicoAudioPack側 LDO入力部に X7R 10μF + C0G 0.1μF 追加
+Pico2側 
+MPUにヒートシンク追加
+VSYS/GND間に X7R 10μF + C0G 0.1μF 追加
+
+PicoAudioPack側 
+LDO入力部に X7R 10μF + C0G 0.1μF 追加
+
 LPF定数 C 2200pF → 1200pF へ変更
 
 Ver2:
-PicoAudioPack側 LDO入力部に PLMCAP 1μF 追加
+PicoAudioPack側
+LDO入力部に PLMCAP 1μF 追加
+
 AVDD/GND間に C0G 0.1μF 追加
+
 CVDD/GND間に C0G 0.1μF 追加
 
 Ver3:
-PicoAudioPack側 AVDD/GND間に PLMCAP 3.3μF 追加
+PicoAudioPack側
+AVDD/GND間に PLMCAP 3.3μF 追加
 
 Ver4 (最新):
-Pico2側 3V3/GND間に X7R 3.3μF + C0G 0.1μF 追加
+Pico2側
+
+3V3/GND間に X7R 3.3μF + C0G 0.1μF 追加
+
 PCM5100A DVDD/GND間に PLMCAP 0.1μF 追加
+
 ソフトウェアオーバーサンプリング解除
+
 ソフトウェアFIRフィルタ解除（NOS化）
 
 
