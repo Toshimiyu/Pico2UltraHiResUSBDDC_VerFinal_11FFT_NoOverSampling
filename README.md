@@ -14,6 +14,34 @@
 - USB経由で入力された2ch PCMオーディオ信号をオーバーサンプリングやFIRフィルタ処理を行わず、そのままI²Sインターフェイスへ出力します（NOS化）。
 - OLEDディスプレイ上にリアルタイム11バンドFFTスペクトラム表示機能を搭載しています。
 
+## 特長
+
+- USB Audio Class 1.0 準拠
+
+- Raspberry Pi Pico2 (RP2350) 専用
+
+- No Oversampling (NOS)
+
+- No FIR Filtering
+
+- ダイレクトPCM出力
+
+- Bit-Perfect Playback Compatible
+
+- OLEDリアルタイム11バンドFFT表示
+
+- DMA + PIOによる低遅延I²S伝送
+
+- Dual Core RP2350対応
+
+- PICO\_AUDIO\_PACK互換
+
+## 対応DAC
+
+- TI PCM5100
+
+※ PCM5100はPICO\_AUDIO\_PACK環境で動作確認済み
+
 ## ハードウェア改修履歴
 
 ### Ver1:
@@ -57,36 +85,6 @@ Pico2側
 - ソフトウェアオーバーサンプリング解除
 
 - ソフトウェアFIRフィルタ解除（NOS化）
-
-
-
-## 特長
-
-- USB Audio Class 1.0 準拠
-
-- Raspberry Pi Pico2 (RP2350) 専用
-
-- No Oversampling (NOS)
-
-- No FIR Filtering
-
-- ダイレクトPCM出力
-
-- Bit-Perfect Playback Compatible
-
-- OLEDリアルタイム11バンドFFT表示
-
-- DMA + PIOによる低遅延I²S伝送
-
-- Dual Core RP2350対応
-
-- PICO\_AUDIO\_PACK互換
-
-## 対応DAC
-
-- TI PCM5100
-
-※ PCM5100はPICO\_AUDIO\_PACK環境で動作確認済み
 
 ## 測定実績・パフォーマンス評価 (Ver4)
 - SB-1240改によるループバック測定（24bit / 96kHz、RMS -10dB入力、300回平均）において、電源デカップリングの最適化とNOS化により以下の優れた特性を確認しています。
