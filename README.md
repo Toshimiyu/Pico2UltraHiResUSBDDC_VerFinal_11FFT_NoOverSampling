@@ -136,15 +136,19 @@ I²S Digital Audio Output
 ## ピンアサイン
 I²S
 DATA : GP9
+
 BCLK : GP10
+
 LRCK : GP11
 
 ## I²C
 SDA : GP6
+
 SCL : GP7
 
 ## Control
 DAC ENABLE : GP5
+
 POWERMODE SW : GP0
 
 ## ビルド方法
