@@ -134,12 +134,10 @@ Pico2側
 ## USB入力仕様
 
 - USB Audio Class 1.0
-- 2ch Stereo
-- 16bit / 24bit PCM
-- 44.1kHz
-- 48kHz
-- 88.2kHz
-- 96kHz
+- フォーマット: I²S 32bit（左右チャンネル交互）
+- チャンネル数: 2ch Stereo
+- ビット深度: 16bit / 24bit PCM
+- サンプルレート: 44.1kHz / 48kHz / 88.2kHz / 96kHz
 
 ## I²S出力仕様
 - I²S 32bit Format
@@ -179,13 +177,13 @@ Center frequencies:
 
 - 700Hz
 
-- 1.4kHz
+- 1.4kHz (1k4)
 
-- 2.8kHz
+- 2.8kHz (2k8)
 
-- 5.6kHz
+- 5.6kHz (5k6)
 
-- 9.8kHz
+- 9.8kHz (9k8)
 
 - 18kHz
 
@@ -197,17 +195,17 @@ FFT Configuration:
 The OLED display provides a real-time 11-band spectrum visualization optimized for RP2350 performance and low display latency.
 
 ## 使用技術・構成
-- RP2350 (Raspberry Pi Pico2)
+- ハードウェア:　RP2350 (Raspberry Pi Pico2)
 
-- DMA
+- 表示・解析デバイス:　Pico Display Pack 2.0 (ドーターボード経由接続)
 
-- PIO
+- データ転送: DMA + PIO による I²S 出力
 
-- Dual Core Processing
+- マルチコア処理:　USB通信処理 + ディスプレイ描画・FFT処理 + DMA + I²S 送信処理
 
-- LUFA USB Audio Class
+- USB制御: LUFAベースの USB Audio Class 実装
 
-- I²S Digital Audio Output
+- タイミング制御: timer 割り込み + バッファレートに応じたフィードバック制御
 
 ## ピンアサイン詳細
 * **I2S DATA** : `GP9`
