@@ -127,10 +127,15 @@ The OLED display provides a real-time 11-band spectrum visualization optimized f
 
 ## 使用技術
 RP2350 (Raspberry Pi Pico2)
+
 DMA
+
 PIO
+
 Dual Core Processing
+
 LUFA USB Audio Class
+
 I²S Digital Audio Output
 
 ## ピンアサイン
