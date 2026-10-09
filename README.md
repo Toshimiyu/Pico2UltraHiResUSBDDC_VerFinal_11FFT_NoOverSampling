@@ -8,16 +8,6 @@
 - Additional modifications have been implemented to improve audio quality, stability, and compatibility.
 - Operation has been verified with PCM5100 on PICO_AUDIO_PACK hardware.
 
-# Pico2UltraHiResUSBDDC_VerFinal_11FFT_NoOverSampling
-## Description
-- 11-band FFT spectrum display version without oversampling and FIR filtering.
-- This project is based on the original work by ArqAlice (MIT License).
-- Originally developed for the PICO_AUDIO_PACK environment (RP2040), this firmware has been reworked for Raspberry Pi Pico2 (RP2350).
-- It does not support RP2040-based boards.
-- GPIO assignments have been remapped to GP9 / GP10 / GP11 to maintain compatibility with the original PICO_AUDIO_PACK hardware.
-- Additional modifications have been implemented to improve audio quality, stability, and compatibility.
-- Operation has been verified with PCM5100 on PICO_AUDIO_PACK hardware.
-
 ## 概要
 
 - 本プロジェクトは、RP2350（Raspberry Pi Pico2）上で動作する USB Audio Class 1.0 準拠の USB-DDC（Digital to Digital Converter）です。
