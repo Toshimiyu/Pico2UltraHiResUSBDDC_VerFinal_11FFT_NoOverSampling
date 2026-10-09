@@ -48,6 +48,12 @@
 
 - PICO_AUDIO_PACK互換
 
+## 表示仕様（Pico Display Pack 2.0）
+ディスプレイ上では、以下のリアルタイム情報およびオーディオビジュアライザーが描画されます。
+* **L/R レベルメーター**: ステレオ音声の音量レベルをリアルタイム表示
+* **L・R 独立 11バンド FFT 表示**: 左右チャンネルそれぞれの周波数特性を7バンドで分離して視覚化
+* **オーディオ情報表示**: 現在の「ビットレート」および「サンプリング周波数 (Fs)」をリアルタイム表示
+* **描画に関する注意**: 本ファームウェアは**音質優先設計**となっているため、オーディオ処理を最優先した結果として画面の描画にちらつき（フリッカー）が生じる場合がありますが、これは仕様です。
 
 ## 対応DAC
 
@@ -159,6 +165,8 @@ Pico2側
 ## FFT Spectrum Display
 ### Real-time 11-band FFT spectrum analyzer.
 
+表示・解析デバイス: Pico Display Pack 2.0 (ドーターボード経由接続)
+
 Center frequencies:
 
 - 45Hz
@@ -188,7 +196,7 @@ FFT Configuration:
 
 The OLED display provides a real-time 11-band spectrum visualization optimized for RP2350 performance and low display latency.
 
-## 使用技術
+## 使用技術・構成
 - RP2350 (Raspberry Pi Pico2)
 
 - DMA
@@ -201,30 +209,26 @@ The OLED display provides a real-time 11-band spectrum visualization optimized f
 
 - I²S Digital Audio Output
 
-## ピンアサイン
-### I²S
-- DATA : GP9
+## ピンアサイン詳細
+* **I2S DATA** : `GP9`
+* **I2S BCLK** : `GP10`
+* **I2S LRCK** : `GP11`
+* **I2C SDA**  : `GP6`
+* **I2C SCL**  : `GP7`
+* **DAC ENABLE** : `GP5`
+* **POWERMODE SW** : `GP0`
+* **Pico Display (SPI/Ctrl)** : `GP16` - `GP20`
+* **Pico Display カラーLED** : ピンアサインの衝突を防ぐため**停止状態（非使用）**に設定
+* **Pico Display ボタン (A, B, X, Y)** : **未使用**
 
-- BCLK : GP10
-
-- LRCK : GP11
-
-### I²C
-- SDA : GP6
-
-- SCL : GP7
-
-### Control
-- DAC ENABLE : GP5
-
-- POWERMODE SW : GP0
-
-## ビルド方法
-- VSCodeをインストール
-- Raspberry Pi Pico Extensionをインストール
-- 本リポジトリをクローン
-- VSCodeでビルド
-- 生成されたUF2ファイルを書き込み
+## ビルド・使用方法
+1. 機器の接続は**ドーターボード経由**で行ってください。
+2. Visual Studio Code 上で Raspberry Pi Pico 拡張機能をインストールする。
+3. 本リポジトリをクローンする。
+4. VSCode上でビルドを実行する（`build/src` にバイナリが生成されます）。
+5. Pico 2 の **BOOTSEL ボタン** を押しながらPCに接続し、ドライブ（`RP2350`）として認識させる。
+6. 生成されたファームウェア（`.uf2`）をドラッグ＆ドロップして書き込む。
+7. 接続後、OS標準のUSBオーディオデバイスとして自動認識されます。
 
 ## ライセンス
 - MIT License
