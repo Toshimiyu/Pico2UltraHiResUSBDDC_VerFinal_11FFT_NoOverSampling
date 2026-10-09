@@ -63,17 +63,27 @@ PCM5100A DVDD/GND間に PLMCAP 0.1μF 追加
 ## 特長
 
 USB Audio Class 1.0 準拠
+
 Raspberry Pi Pico2 (RP2350) 専用
+
 No Oversampling (NOS)
+
 No FIR Filtering
+
 ダイレクトPCM出力
+
 Bit-Perfect Playback Compatible
+
 OLEDリアルタイム11バンドFFT表示
+
 DMA + PIOによる低遅延I²S伝送
+
 Dual Core RP2350対応
+
 PICO\_AUDIO\_PACK互換
 
 ## 対応DAC
+
 TI PCM5100
 
 ※ PCM5100はPICO\_AUDIO\_PACK環境で動作確認済み
