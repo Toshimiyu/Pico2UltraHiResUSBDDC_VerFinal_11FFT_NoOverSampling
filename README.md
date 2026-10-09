@@ -1,6 +1,6 @@
 # Pico2UltraHiResUSBDDC\_VerFinal\_11FFT\_NoOverSampling
 ## Description
-##11-band FFT spectrum display version without oversampling and FIR filtering.
+11-band FFT spectrum display version without oversampling and FIR filtering.
 This project is based on the original work by ArqAlice (MIT License).
 Originally developed for the PICO\_AUDIO\_PACK environment (RP2040), this firmware has been reworked for Raspberry Pi Pico2 (RP2350).
 It does not support RP2040-based boards.
