@@ -98,18 +98,30 @@ Real-time 11-band FFT spectrum analyzer.
 
 Center frequencies:
 45Hz
+
 90Hz
+
 125Hz
+
 360Hz
+
 700Hz
+
 1.4kHz
+
 2.8kHz
+
 5.6kHz
+
 9.8kHz
+
 18kHz
+
 22kHz
+
 FFT Configuration:
 FFT\_LEN = 1024
+
 The OLED display provides a real-time 11-band spectrum visualization optimized for RP2350 performance and low display latency.
 
 ## 使用技術
