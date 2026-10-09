@@ -1,18 +1,18 @@
 # Pico2UltraHiResUSBDDC\_VerFinal\_11FFT\_NoOverSampling
 ## Description
-11-band FFT spectrum display version without oversampling and FIR filtering.
-This project is based on the original work by ArqAlice (MIT License).
-Originally developed for the PICO\_AUDIO\_PACK environment (RP2040), this firmware has been reworked for Raspberry Pi Pico2 (RP2350).
-It does not support RP2040-based boards.
-GPIO assignments have been remapped to GP9 / GP10 / GP11 to maintain compatibility with the original PICO\_AUDIO\_PACK hardware.
-Additional modifications have been implemented to improve audio quality, stability, and compatibility.
-Operation has been verified with PCM5100 on PICO\_AUDIO\_PACK hardware.
+- 11-band FFT spectrum display version without oversampling and FIR filtering.
+- This project is based on the original work by ArqAlice (MIT License).
+- Originally developed for the PICO\_AUDIO\_PACK environment (RP2040), this firmware has been reworked for Raspberry Pi Pico2 (RP2350).
+- It does not support RP2040-based boards.
+- GPIO assignments have been remapped to GP9 / GP10 / GP11 to maintain compatibility with the original PICO\_AUDIO\_PACK hardware.
+- Additional modifications have been implemented to improve audio quality, stability, and compatibility.
+- Operation has been verified with PCM5100 on PICO\_AUDIO\_PACK hardware.
 
 ## 概要
 
-本プロジェクトは、RP2350（Raspberry Pi Pico2）上で動作する USB Audio Class 1.0 準拠の USB-DDC（Digital to Digital Converter）です。
-USB経由で入力された2ch PCMオーディオ信号をオーバーサンプリングやFIRフィルタ処理を行わず、そのままI²Sインターフェイスへ出力します（NOS化）。
-また、OLEDディスプレイ上にリアルタイム11バンドFFTスペクトラム表示機能を搭載しています。
+- 本プロジェクトは、RP2350（Raspberry Pi Pico2）上で動作する USB Audio Class 1.0 準拠の USB-DDC（Digital to Digital Converter）です。
+- USB経由で入力された2ch PCMオーディオ信号をオーバーサンプリングやFIRフィルタ処理を行わず、そのままI²Sインターフェイスへ出力します（NOS化）。
+- OLEDディスプレイ上にリアルタイム11バンドFFTスペクトラム表示機能を搭載しています。
 
 ## ハードウェア改修履歴
 
@@ -126,9 +126,9 @@ Pico2側
 - 音切れが発生する場合は、再生ソフトウェアまたはOSのサンプリングレート設定を下げてご使用ください。
 - システム負荷を低減することで再生が安定する場合があります。
 
-Audio dropouts may occur during high sample-rate playback depending on the host PC performance and system load.
-If audio dropouts occur, reduce the playback sample rate in the operating system or audio player settings.
-Lower sample rates may improve playback stability.
+- Audio dropouts may occur during high sample-rate playback depending on the host PC performance and system load.
+- If audio dropouts occur, reduce the playback sample rate in the operating system or audio player settings.
+- Lower sample rates may improve playback stability.
 
 ## FFT Spectrum Display
 ### Real-time 11-band FFT spectrum analyzer.
