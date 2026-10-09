@@ -20,71 +20,71 @@ Ver1:
 
 Pico2側
 
-MPUにヒートシンク追加
+- MPUにヒートシンク追加
 
-VSYS/GND間に X7R 10μF + C0G 0.1μF 追加
+- VSYS/GND間に X7R 10μF + C0G 0.1μF 追加
 
 PicoAudioPack側 
 
-LDO入力部に X7R 10μF + C0G 0.1μF 追加
+- LDO入力部に X7R 10μF + C0G 0.1μF 追加
 
-LPF定数 C 2200pF → 1200pF へ変更
+- LPF定数 C 2200pF → 1200pF へ変更
 
 Ver2:
 
 PicoAudioPack側
 
-LDO入力部に PLMCAP 1μF 追加
+- LDO入力部に PLMCAP 1μF 追加
 
-AVDD/GND間に C0G 0.1μF 追加
+- AVDD/GND間に C0G 0.1μF 追加
 
-CVDD/GND間に C0G 0.1μF 追加
+- CVDD/GND間に C0G 0.1μF 追加
 
 Ver3:
 
 PicoAudioPack側
 
-AVDD/GND間に PLMCAP 3.3μF 追加
+- AVDD/GND間に PLMCAP 3.3μF 追加
 
 Ver4 (最新):
 
 Pico2側
 
-3V3/GND間に X7R 3.3μF + C0G 0.1μF 追加
+- 3V3/GND間に X7R 3.3μF + C0G 0.1μF 追加
 
-PCM5100A DVDD/GND間に PLMCAP 0.1μF 追加
+- PCM5100A DVDD/GND間に PLMCAP 0.1μF 追加
 
-ソフトウェアオーバーサンプリング解除
+- ソフトウェアオーバーサンプリング解除
 
-ソフトウェアFIRフィルタ解除（NOS化）
+- ソフトウェアFIRフィルタ解除（NOS化）
 
 
 
 ## 特長
 
-USB Audio Class 1.0 準拠
+- USB Audio Class 1.0 準拠
 
-Raspberry Pi Pico2 (RP2350) 専用
+- Raspberry Pi Pico2 (RP2350) 専用
 
-No Oversampling (NOS)
+- No Oversampling (NOS)
 
-No FIR Filtering
+- No FIR Filtering
 
-ダイレクトPCM出力
+- ダイレクトPCM出力
 
-Bit-Perfect Playback Compatible
+- Bit-Perfect Playback Compatible
 
-OLEDリアルタイム11バンドFFT表示
+- OLEDリアルタイム11バンドFFT表示
 
-DMA + PIOによる低遅延I²S伝送
+- DMA + PIOによる低遅延I²S伝送
 
-Dual Core RP2350対応
+- Dual Core RP2350対応
 
-PICO\_AUDIO\_PACK互換
+- PICO\_AUDIO\_PACK互換
 
 ## 対応DAC
 
-TI PCM5100
+- TI PCM5100
 
 ※ PCM5100はPICO\_AUDIO\_PACK環境で動作確認済み
 
@@ -101,21 +101,21 @@ SB-1240改によるループバック測定（24bit / 96kHz、RMS -10dB入力、
 
 ## USB入力仕様
 
-USB Audio Class 1.0
-2ch Stereo
-16bit / 24bit PCM
-44.1kHz
-48kHz
-88.2kHz
-96kHz
+- USB Audio Class 1.0
+- 2ch Stereo
+- 16bit / 24bit PCM
+- 44.1kHz
+- 48kHz
+- 88.2kHz
+- 96kHz
 
 ## I²S出力仕様
-I²S 32bit Format
-Stereo
-Input Sample Rate Follow Mode
-No Sample Rate Conversion
-No Oversampling
-Bit-Perfect Playback
+- I²S 32bit Format
+- Stereo
+- Input Sample Rate Follow Mode
+- No Sample Rate Conversion
+- No Oversampling
+- Bit-Perfect Playback
 
 ビットパーフェクト再生を行う場合は、Windows側の再生デバイス音量を100%に設定してください。
 Windowsの音量を下げるとデジタルボリューム処理が適用され、USBオーディオデバイスへ送られるPCMデータが変更される場合があります。
@@ -131,82 +131,82 @@ If audio dropouts occur, reduce the playback sample rate in the operating system
 Lower sample rates may improve playback stability.
 
 ## FFT Spectrum Display
-Real-time 11-band FFT spectrum analyzer.
+### Real-time 11-band FFT spectrum analyzer.
 
 Center frequencies:
 
-45Hz
+- 45Hz
 
-90Hz
+- 90Hz
 
-125Hz
+- 125Hz
 
-360Hz
+- 360Hz
 
-700Hz
+- 700Hz
 
-1.4kHz
+- 1.4kHz
 
-2.8kHz
+- 2.8kHz
 
-5.6kHz
+- 5.6kHz
 
-9.8kHz
+- 9.8kHz
 
-18kHz
+- 18kHz
 
-22kHz
+- 22kHz
 
 FFT Configuration:
-FFT\_LEN = 1024
+- FFT\_LEN = 1024
 
 The OLED display provides a real-time 11-band spectrum visualization optimized for RP2350 performance and low display latency.
 
 ## 使用技術
-RP2350 (Raspberry Pi Pico2)
+- RP2350 (Raspberry Pi Pico2)
 
-DMA
+- DMA
 
-PIO
+- PIO
 
-Dual Core Processing
+- Dual Core Processing
 
-LUFA USB Audio Class
+- LUFA USB Audio Class
 
-I²S Digital Audio Output
+- I²S Digital Audio Output
 
 ## ピンアサイン
 I²S
-DATA : GP9
+- DATA : GP9
 
-BCLK : GP10
+- BCLK : GP10
 
-LRCK : GP11
+- LRCK : GP11
 
 ## I²C
-SDA : GP6
+- SDA : GP6
 
-SCL : GP7
+- SCL : GP7
 
 ## Control
-DAC ENABLE : GP5
+- DAC ENABLE : GP5
 
-POWERMODE SW : GP0
+- POWERMODE SW : GP0
 
 ## ビルド方法
-VSCodeをインストール
-Raspberry Pi Pico Extensionをインストール
-本リポジトリをクローン
-VSCodeでビルド
-生成されたUF2ファイルを書き込み
+- VSCodeをインストール
+- Raspberry Pi Pico Extensionをインストール
+- 本リポジトリをクローン
+- VSCodeでビルド
+- 生成されたUF2ファイルを書き込み
 
 ## ライセンス
-MIT License
-Original Copyright (c) 2025 ArqAlice
-Additional modifications for RP2350 support, PICO\_AUDIO\_PACK compatibility, OLED FFT display, and No Oversampling version by Toshimiyu.
+- MIT License
+- Original Copyright (c) 2025 ArqAlice
+- Additional modifications for RP2350 support, PICO\_AUDIO\_PACK compatibility, OLED FFT display, and No Oversampling version by Toshimiyu.
 
 ## 参考文献
-USB Audio Class 1.0 Specification
-Raspberry Pi Pico SDK
-LUFA USB Framework
+- USB Audio Class 1.0 Specification
+- Raspberry Pi Pico SDK
+- LUFA USB Framework
 
