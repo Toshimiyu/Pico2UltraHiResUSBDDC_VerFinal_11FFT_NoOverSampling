@@ -31,7 +31,7 @@
 ## 表示仕様（Pico Display Pack 2.0）
 ディスプレイ上では、以下のリアルタイム情報およびオーディオビジュアライザーが描画されます。
 * **L/R レベルメーター**: ステレオ音声の音量レベルをリアルタイム表示
-* **L・R 独立 11バンド FFT 表示**: 左右チャンネルそれぞれの周波数特性を7バンドで分離して視覚化
+* **L・R 独立 11バンド FFT 表示**: 左右チャンネルそれぞれの周波数特性を11バンドで分離して視覚化
 * **オーディオ情報表示**: 現在の「ビットレート」および「サンプリング周波数 (Fs)」をリアルタイム表示
 * **描画に関する注意**: 本ファームウェアは**音質優先設計**となっているため、オーディオ処理を最優先した結果として画面の描画にちらつき（フリッカー）が生じる場合がありますが、これは仕様です。
 
@@ -95,17 +95,35 @@ Center frequencies:
 The OLED display provides a real-time 11-band spectrum visualization optimized for RP2350 performance and low display latency.
 
 ## 使用技術・構成
-- ハードウェア:　RP2350 (Raspberry Pi Pico2)
 
-- 表示・解析デバイス:　Pico Display Pack 2.0 (ドーターボード経由接続)
+- ハードウェア: RP2350 (Raspberry Pi Pico2)
 
-- データ転送: DMA + PIO による I²S 出力
+- 表示・解析デバイス: Pico Display Pack 2.0 (ドーターボード経由接続)
 
-- マルチコア処理:　USB通信処理 + ディスプレイ描画・FFT処理 + DMA + I²S 送信処理
+- データ転送:
+  DMA + PIO による低遅延 I²S 出力
 
-- USB制御: LUFAベースの USB Audio Class 実装
+- マルチコア処理:
+  Core0
+  - OLED描画処理
+  - Power Mode管理
+  - クロック切り替え制御
+  - DACミュート制御
+  - タイマー管理処理
 
-- タイミング制御: timer 割り込み + バッファレートに応じたフィードバック制御
+  Core1
+  - I²S出力処理
+  - DMA転送処理
+  - FFT解析処理
+
+- USB制御:
+  LUFAベース USB Audio Class 1.0 実装
+
+- クロック同期:
+  USB Audio Asynchronous Feedback Endpoint を利用したフィードバック制御
+
+- タイミング制御:
+  Repeating Timer による周期管理
 
 ## ピンアサイン詳細
 - I2S DATA : `GP9`
