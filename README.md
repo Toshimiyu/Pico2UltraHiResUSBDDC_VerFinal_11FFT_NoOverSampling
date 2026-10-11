@@ -26,7 +26,7 @@
 - DMA + PIOによる低遅延I²S伝送
 - Dual Core RP2350対応
 - PICO_AUDIO_PACK互換
-- PICO_AUDIO_PACK互換
+- Pico Display Pack2.0互換
 
 ## 表示仕様（Pico Display Pack 2.0）
 ディスプレイ上では、以下のリアルタイム情報およびオーディオビジュアライザーが描画されます。
