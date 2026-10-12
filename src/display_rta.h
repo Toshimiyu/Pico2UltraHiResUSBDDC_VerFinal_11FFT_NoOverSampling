@@ -15,6 +15,7 @@ void display_rta_set_format(uint8_t bit_depth, float sample_rate_khz);
 
 // 起動画面（Dual Heritage テーマ演出：10秒）
 void display_rta_draw_splash_screen(void);
+void display_rta_set_boot_stage(uint8_t stage);
 
 // 実オーディオデータ入力用関数
 void display_rta_set_levels(

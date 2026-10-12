@@ -592,12 +592,13 @@ lcd_fill_color(COLOR_BG);
 }
 
 void display_rta_draw_splash_screen(void) {
-static const char *const boot_steps[5] = {
-"Loading USB Audio Class",
-"Configuring DAC & I2S",
-"Calibrating FFT Engine",
-"Initializing TFT Display",
-"System Ready. Launching"
+static const char *const boot_steps[6] = {
+    "Display Initialization",
+    "DAC Initialization",
+    "Core1 Audio Engine",
+    "FFT Initialization",
+    "USB Audio Ready",
+    "System Ready"
 };
 
 lcd_draw_rect(8, 8, 304, 224, COLOR_DIVIDER);
@@ -608,7 +609,7 @@ lcd_fill_rect(20, 32, 280, 1, COLOR_DIVIDER);
 
 lcd_draw_string(20, 44, "Pico2 UltraHires USB-DDC", COLOR_FREQ_TEXT, COLOR_BG, 1);
 lcd_draw_string(20, 58, "Copilot x GEMINI / Dual Heritage", COLOR_CH_LABEL, COLOR_BG, 1);
-lcd_draw_string(20, 72, "Customized by Toshimi.Y", COLOR_DIVIDER, COLOR_BG, 1);
+lcd_draw_string(20, 72, "Customized by Toshimiyu", COLOR_DIVIDER, COLOR_BG, 1);
 
 lcd_fill_rect(20, 92, 280, 48, 0x0081);
 lcd_draw_rect(20, 92, 280, 48, COLOR_DIVIDER);
@@ -620,31 +621,58 @@ lcd_fill_rect(20, 150, 280, 1, COLOR_DIVIDER);
 lcd_draw_string(20, 162, "Initializing Subsystems", COLOR_TITLE, COLOR_BG, 1);
 
 splash_start_us = time_us_32();
-splash_stage = 0;
+
+splash_stage = 255;
+
 lcd_draw_string(240, 162, ".", COLOR_TITLE, COLOR_BG, 1);
 lcd_draw_string(20, 178, boot_steps[0], COLOR_DIVIDER, COLOR_BG, 1);
 }
 
-void display_rta_splash_service(void) {
-static const char *const boot_steps[5] = {
-"Loading USB Audio Class",
-"Configuring DAC & I2S",
-"Calibrating FFT Engine",
-"Initializing TFT Display",
-"System Ready. Launching"
-};
-uint8_t stage = (uint8_t)((uint32_t)(time_us_32() - splash_start_us) / 4000000u);
-if (stage > 4) stage = 4;
-if (stage == splash_stage) return;
 
-splash_stage = stage;
-lcd_fill_rect(20, 178, 250, 12, COLOR_BG);
-lcd_draw_string(20, 178, boot_steps[stage], COLOR_DIVIDER, COLOR_BG, 1);
+void display_rta_set_boot_stage(uint8_t stage)
+{
+    static const char *const boot_steps[6] = {
+        "Display Initialization",
+        "DAC Initialization",
+        "Core1 Audio Engine",
+        "FFT Initialization",
+        "USB Audio Ready",
+        "System Ready"
+    };
 
-char dots[6] = {0};
-for (uint8_t i = 0; i <= stage; ++i) dots[i] = '.';
-lcd_fill_rect(240, 162, 48, 8, COLOR_BG);
-lcd_draw_string(240, 162, dots, COLOR_TITLE, COLOR_BG, 1);
+    if(stage > 5)
+    {
+        stage = 5;
+    }
+
+    lcd_fill_rect(20, 178, 250, 12, COLOR_BG);
+
+    lcd_draw_string(
+        20,
+        178,
+        boot_steps[stage],
+        COLOR_DIVIDER,
+        COLOR_BG,
+        1
+    );
+
+    char dots[7] = {0};
+
+    for(uint8_t i = 0; i <= stage; i++)
+    {
+        dots[i] = '.';
+    }
+
+    lcd_fill_rect(240, 162, 48, 8, COLOR_BG);
+
+    lcd_draw_string(
+        240,
+        162,
+        dots,
+        COLOR_TITLE,
+        COLOR_BG,
+        1
+    );
 }
 
 void display_rta_hw_init(void) {

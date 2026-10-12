@@ -217,7 +217,7 @@ int main(void)
 	// routine returns immediately, so initialization continues with it visible.
 	display_rta_hw_init();
 	display_rta_clear_screen();
-	const uint32_t splash_start_us = time_us_32();
+	
 	display_rta_draw_splash_screen();
 
 	// パワーモード切り替え用
@@ -261,29 +261,47 @@ int main(void)
 	// ESS DAC SETUP
 	if (USE_ESS_DAC)
 	{
-		ess_dac_i2c_setup();
-		initialize_i2c_ringbuffer(SIZE_I2C_RINGBUFFER, &i2c_ringbuffer0);
+    	ess_dac_i2c_setup();
+    	initialize_i2c_ringbuffer(
+        	SIZE_I2C_RINGBUFFER,
+        	&i2c_ringbuffer0
+    	);
 	}
+
+
 	// アップサンプリングフィルタを初期化する
 	init_upsampling_filter();
 
-    spectrum_init();
-    spectrum_set_sample_rate(audio_state.freq);
+	spectrum_init();
+	spectrum_set_sample_rate(audio_state.freq);
 
-    // Keep the splash on screen for its original 20-second duration. USB audio
-    // is not exposed yet, and Core0 remains available to service the audio path.
-    while ((uint32_t)(time_us_32() - splash_start_us) < 20000000u) {
-        upsampling_process_core0();
-        display_rta_splash_service();
-        sleep_ms(1);
-    }
 
-    // Switch screens before exposing the USB audio endpoint to the host.
-    display_rta_init();
 
-    // Expose the USB audio device only after Core0 has finished the startup graphics.
-    usb_sound_card_init();
-    sleep_ms(100);
+	// USBを先に公開する
+	usb_sound_card_init();
+	sleep_ms(100);
+
+	//起動画面描画
+	display_rta_set_boot_stage(0);
+	sleep_ms(2000);
+
+	display_rta_set_boot_stage(1);
+	sleep_ms(2000);
+
+	display_rta_set_boot_stage(2);
+	sleep_ms(2000);
+
+	display_rta_set_boot_stage(3);
+	sleep_ms(2000);
+
+	display_rta_set_boot_stage(4);
+	sleep_ms(2000);
+
+	display_rta_set_boot_stage(5);
+	sleep_ms(2000);
+
+	// FFT表示画面へ切り替え
+	display_rta_init();
 
 	// watchdog_enable(50, 1);
 
