@@ -1,0 +1,221 @@
+# Pico2UltraHiResUSBDDC_VerFinal_11FFT_NoOverSampling
+## Description
+- 11-band FFT spectrum display version without oversampling and FIR filtering.
+- This project is based on the original work by ArqAlice (MIT License).
+- Originally developed for the PICO_AUDIO_PACK environment (RP2040), this firmware has been reworked for Raspberry Pi Pico2 (RP2350).
+- It does not support RP2040-based boards.
+- GPIO assignments have been remapped to GP9 / GP10 / GP11 to maintain compatibility with the original PICO_AUDIO_PACK hardware.
+- Additional modifications have been implemented to improve audio quality, stability, and compatibility.
+- Operation has been verified with PCM5100 on PICO_AUDIO_PACK hardware.
+
+## 概要
+- 本プロジェクトは、RP2350（Raspberry Pi Pico2）上で動作する USB Audio Class 1.0 準拠の USB-DDC（Digital to Digital Converter）です。
+- USB経由で入力された2ch PCMオーディオ信号をオーバーサンプリングやFIRフィルタ処理を行わず、そのままI²Sインターフェイスへ出力します（NOS化）。
+- LCDディスプレイ上にリアルタイム11バンドFFTスペクトラム表示機能を搭載しています。
+- **音声クリッピング対策を実装**
+  ※DEFAULT_GAIN_RATIO = 0.80 を採用しています。
+  0.70 / 0.75 / 0.80 / 0.83 / 0.85 / 1.00 の設定について、
+  FFT測定および実音源による比較試聴を実施しました。
+  FFT測定では、DEFAULT_GAIN_RATIO=0.80設定において
+
+  100Hz
+  THD 0.00104%
+  THD+N 0.00743%
+
+  1kHz
+  THD 0.00231%
+  THD+N 0.00696%
+
+  20kHz
+  THD 0.00971%
+  THD+N 0.01650%
+
+  を示し、高域特性も維持していました。
+  試聴では、0.70および0.75は高域の抜けが不足し、0.83以上はよりクリアでしたが、筆者の試聴環境では刺激感が増す傾向がありました。
+  透明度・高域の抜け・聴き心地・クリッピング余裕を総合評価した結果、本システムでは DEFAULT_GAIN_RATIO = 0.80 を実用最適値として採用しています。
+  ※本結果はPICO_AUDIO_PACK（PCM5100A/PCM5102A）および筆者環境での評価結果であり、使用するDACや再生環境によって最適値は異なる可能性があります。
+
+## 特長
+- USB Audio Class 1.0 準拠
+- Raspberry Pi Pico2 (RP2350) 専用
+- No Oversampling (NOS)
+- No FIR Filtering
+- ダイレクトPCM出力
+- Bit-Perfect Playback Compatible
+- LCDリアルタイム11バンドFFT表示
+- DMA + PIOによる低遅延I²S伝送
+- Dual Core RP2350対応
+- PICO_AUDIO_PACK互換
+- Pico Display Pack2.0互換
+
+Created by Toshimiyu
+
+![system_photo_01](https://raw.githubusercontent.com/Toshimiyu/Pico2UltraHiResUSBDDC_VerFinal_11FFT_NoOverSampling/main/images/system_photo_01.png)
+
+## 表示仕様（Pico Display Pack 2.0）
+ディスプレイ上では、以下のリアルタイム情報およびオーディオビジュアライザーが描画されます。
+* **L/R レベルメーター**: ステレオ音声の音量レベルをリアルタイム表示
+* **L・R 独立 11バンド FFT 表示**: 左右チャンネルそれぞれの周波数特性を11バンドで分離して視覚化
+* **オーディオ情報表示**: 現在の「ビットレート」および「サンプリング周波数 (Fs)」をリアルタイム表示
+* **描画に関する注意**: 本ファームウェアは**音質優先設計**となっているため、オーディオ処理を最優先した結果として画面の描画にちらつき（フリッカー）が生じる場合がありますが、これは仕様です。
+
+## 対応OS
+- Windows11
+※ Windows11 26H2環境で動作確認済み
+- Android
+※Android 16 HF Player(有償版)+Sony Experia XQ-ES44にて動作確認済
+
+## 対応DAC
+- TI PCM5100
+※ PCM5100はPICO_AUDIO_PACK環境で動作確認済み
+
+## USB入力仕様
+- USB Audio Class 1.0
+- フォーマット: I²S 32bit（左右チャンネル交互）
+- チャンネル数: 2ch Stereo
+- ビット深度: 16bit / 24bit PCM
+- サンプルレート: 44.1kHz / 48kHz / 88.2kHz / 96kHz
+
+## I²S出力仕様
+- I²S 32bit Format
+- Stereo
+- Input Sample Rate Follow Mode
+- No Sample Rate Conversion
+- No Oversampling
+- Bit-Perfect Playback
+
+## Playback Notes
+- 高サンプリングレート再生時は、ご使用のPC環境や負荷状況により音切れが発生する場合があります。
+- 音切れが発生する場合は、再生ソフトウェアまたはOSのサンプリングレート設定を下げてご使用ください。
+- システム負荷を低減することで再生が安定する場合があります。
+
+- Audio dropouts may occur during high sample-rate playback depending on the host PC performance and system load.
+- If audio dropouts occur, reduce the playback sample rate in the operating system or audio player settings.
+- Lower sample rates may improve playback stability.
+
+## FFT Spectrum Display
+### Real-time 11-band FFT spectrum analyzer.
+表示・解析デバイス: Pico Display Pack 2.0 (ドーターボード経由接続)
+
+Center frequencies:
+- 45Hz
+- 90Hz
+- 125Hz
+- 360Hz
+- 700Hz
+- 1.4kHz (1k4)
+- 2.8kHz (2k8)
+- 5.6kHz (5k6)
+- 9.8kHz (9k8)
+- 18kHz
+- 22kHz
+
+### FFT Configuration:
+- FFT_LEN = 2048へ変更
+
+The LCD display provides a real-time 11-band spectrum visualization optimized for RP2350 performance and low display latency.
+
+  ※45Hz/90Hz帯域の分離改善
+    A特性補正処理改善
+    
+## 使用技術・構成
+- ハードウェア: RP2350 (Raspberry Pi Pico2)
+- 表示・解析デバイス: Pico Display Pack 2.0 (ドーターボード経由接続)
+- データ転送:
+  DMA + PIO による低遅延 I²S 出力
+- マルチコア処理:
+  Core0
+  - LCD描画処理
+  - Power Mode管理
+  - クロック切り替え制御
+  - DACミュート制御
+  - タイマー管理処理
+
+  Core1
+  - I²S出力処理
+  - DMA転送処理
+  - FFT解析処理
+- USB制御:
+  LUFAベース USB Audio Class 1.0 実装
+- クロック同期:
+  USB Audio Asynchronous Feedback Endpoint を利用したフィードバック制御
+- タイミング制御:
+  Repeating Timer による周期管理
+- RAM実行とフラッシュクロック分周の設定
+  プログラムをRAM上で実行。
+  フラッシュクロックの分周値は3に設定。
+
+## ピンアサイン詳細
+- I2S DATA : `GP9`
+- I2S BCLK : `GP10`
+- I2S LRCK : `GP11`
+- I2C SDA  : `GP6`
+- I2C SCL  : `GP7`
+- DAC ENABLE : `GP5`
+- POWERMODE SW : `GP0`
+- Pico Display (SPI/Ctrl) : `GP16` - `GP20`
+- Pico Display カラーLED : ピンアサインの衝突を防ぐため**停止状態（非使用）**に設定
+- Pico Display ボタン (A, B, X, Y) : 未使用
+
+## ビルド・使用方法
+1. 機器の接続は**ドーターボード経由**で行ってください。
+2. Visual Studio Code 上で Raspberry Pi Pico 拡張機能をインストールする。
+3. 本リポジトリをクローンする。
+4. VSCode上でビルドを実行する（`build/src` にバイナリが生成されます）。
+5. Pico 2 の **BOOTSEL ボタン** を押しながらPCに接続し、ドライブ（`RP2350`）として認識させる。
+6. 生成されたファームウェア（`.uf2`）をドラッグ＆ドロップして書き込む。
+7. 接続後、OS標準のUSBオーディオデバイスとして自動認識されます。
+
+## ハードウェア改修履歴
+### Ver1:
+Pico2側
+- MPUにヒートシンク追加
+- VSYS/GND間に X7R 10μF + C0G 0.1μF 追加
+PicoAudioPack側 
+- LDO入力部に X7R 10μF + C0G 0.1μF 追加
+- LPF定数 C 2200pF → 1200pF へ変更
+
+### Ver2:
+PicoAudioPack側
+- LDO入力部に PLMCAP 1μF 追加
+- AVDD/GND間に C0G 0.1μF 追加
+- CVDD/GND間に C0G 0.1μF 追加
+
+### Ver3:
+PicoAudioPack側
+- AVDD/GND間に PLMCAP 3.3μF 追加
+
+###  Ver4 (最新):
+Pico2側
+- 3V3/GND間に X7R 3.3μF + C0G 0.1μF 追加
+- PCM5100A DVDD/GND間に PLMCAP 0.1μF 追加
+- ソフトウェアオーバーサンプリング解除
+- ソフトウェアFIRフィルタ解除（NOS化）
+
+## 測定実績・パフォーマンス評価 (Ver4)
+
+※本測定結果は、標準状態の Pico2 および Pico Audio Pack ではなく、 実際に運用している上記モディファイ済み構成に対して実施されたものである。
+また、電源やUSB接続環境についても、特別な処置を施した環境で測定しているため、全ての結果や動作を保証するものではありません。
+
+### 測定について
+- SB-1240改によるループバック測定（24bit / 96kHz、RMS -10dB入力、300回平均）において、電源デカップリングの最適化とNOS化により以下の優れた特性を確認しています。
+- 無音時ノイズフロアの改善: 1kHz付近の不要成分（スプリアス）がVer3と比較して約10dBの大幅な低下（-108.52dB → -118.44dB）を達成。
+- 歪み特性の改善: 1kHz THDが 0.00110% へ改善（2次高調波が約3dB減少）。20kHz THD+Nが約13%改善（0.03719% → 0.03220%）。
+- 混変調歪み (IMD 19kHz + 20kHz): 差周波（1kHz成分）が約8.5dB大幅に改善（-107.70dB → -116.18dB）。
+- 矩形波応答: FIRフィルタおよびオーバーサンプリングの解除により、20kHz以降の高調波成分がしっかりと保持され、高域の再現性と生々しさが向上。
+
+### 改修に至った理由
+- ノーオーバーサンプリング化とソフトウェアFIRフィルターの削除により、サンプルレート切り替え時の、ノイズ削減と周波数特性の改善を行っております。
+- DAC側でオーバーサンプリング処理＆FIRフィルターが実装されており、必要ないとの判断に至ったため。
+- オーディオストリームをなるべく加工せず送る方が音質的に有利と判断したため。
+- 元ソースコード状態において、MPUがオーバークロック状態に設定されているため、ヒートシンクが必要と判断して取り付けています。（発熱による動作停止を防ぐのが目的）
+
+## ライセンス
+- MIT License
+- Original Copyright (c) 2025 ArqAlice
+- Additional modifications for RP2350 support, PICO_AUDIO_PACK compatibility, Pico Display Pack 2.0, and No Oversampling version by Toshimiyu.
+
+## 参考文献
+- USB Audio Class 1.0 Specification
+- Raspberry Pi Pico SDK
+- LUFA USB Framework
